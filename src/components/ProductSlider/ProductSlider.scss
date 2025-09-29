@@ -1,4 +1,5 @@
 @use "../../styles/variables" as *;
+@use "sass:color";
 
 .product-slider {
   display: flex;
@@ -10,7 +11,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
-  // Left side - Product list
+  // Product list container
   &__list {
     flex: 0 0 45%;
     display: flex;
@@ -22,11 +23,22 @@
     max-height: 700px;
   }
 
-  // Right side - Product details
-  &__details {
+  // Side panel details (desktop only)
+  &__side-details {
     flex: 1;
     padding: $spacing-xl;
     background-color: $white;
+    display: block;
+  }
+
+  // Accordion details (mobile/tablet only)
+  &__accordion-details {
+    display: none;
+    padding: $spacing-lg;
+    background-color: $white;
+    border-radius: 8px;
+    margin-top: $spacing-sm;
+    animation: slideDown $transition-normal ease-out;
   }
 
   // Loading and error states
@@ -36,6 +48,55 @@
     text-align: center;
     font-size: 1.125rem;
     color: $secondary-color;
+  }
+
+  // Tablet breakpoint (portrait tablets and smaller)
+  @media (max-width: $desktop) {
+    flex-direction: column;
+    max-width: 768px;
+
+    &__list {
+      flex: 1;
+      max-height: none;
+    }
+
+    // Hide side panel on tablet
+    &__side-details {
+      display: none;
+    }
+
+    // Show accordion details on tablet
+    &__accordion-details {
+      display: flex;
+    }
+  }
+
+  // Mobile breakpoint
+  @media (max-width: $tablet) {
+    border-radius: 0;
+    box-shadow: none;
+
+    &__list {
+      padding: $spacing-md;
+      gap: $spacing-sm;
+    }
+
+    &__accordion-details {
+      padding: $spacing-md;
+      margin-top: $spacing-xs;
+    }
+  }
+}
+
+// Slide down animation for accordion
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -106,6 +167,27 @@
     width: 40px;
     height: 40px;
   }
+
+  // Mobile/Tablet: smaller cards
+  @media (max-width: $tablet) {
+    grid-template-columns: 60px 1fr auto;
+    padding: $spacing-sm;
+    gap: $spacing-sm;
+
+    &__image {
+      width: 60px;
+      height: 60px;
+    }
+
+    &__title {
+      font-size: 0.85rem;
+    }
+
+    &__chevron {
+      width: 32px;
+      height: 32px;
+    }
+  }
 }
 
 // Chevron Icon Styles
@@ -114,11 +196,27 @@
   height: 32px;
   color: $accent-color;
   transition: all $transition-normal;
+
+  // Desktop: horizontal chevron (90deg = pointing right)
   transform: rotate(90deg);
 
   &--active {
+    // Desktop: pointing left when active
     transform: rotate(270deg);
-    color: $accent-color;
+  }
+
+  // Mobile/Tablet: vertical chevron
+  @media (max-width: $desktop) {
+    transform: rotate(0deg);
+
+    &--active {
+      transform: rotate(180deg);
+    }
+  }
+
+  @media (max-width: $tablet) {
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -160,7 +258,7 @@
     align-self: flex-start;
 
     &:hover {
-      background-color: lighten($primary-color, 10%);
+      background-color: color.adjust($primary-color, $lightness: 10%);
       transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
@@ -172,6 +270,38 @@
     &:focus {
       outline: 2px solid $accent-color;
       outline-offset: 2px;
+    }
+  }
+
+  // Tablet adjustments
+  @media (max-width: $desktop) {
+    gap: $spacing-md;
+
+    &__price {
+      font-size: 1.75rem;
+    }
+
+    &__description {
+      font-size: 0.9rem;
+    }
+  }
+
+  // Mobile adjustments
+  @media (max-width: $tablet) {
+    gap: $spacing-sm;
+
+    &__price {
+      font-size: 1.5rem;
+    }
+
+    &__description {
+      font-size: 0.875rem;
+    }
+
+    &__cart-button {
+      width: 100%;
+      align-self: stretch;
+      text-align: center;
     }
   }
 }
@@ -191,16 +321,23 @@
     font-size: 0.875rem;
     color: $secondary-color;
   }
+
+  @media (max-width: $tablet) {
+    &__count {
+      font-size: 0.75rem;
+    }
+  }
 }
 
 // Star Icon Styles
 .star-icon {
   width: 20px;
   height: 20px;
-  color: #ffc107; // Gold color for stars
+  color: #ffc107;
   transition: all $transition-fast;
 
-  &--filled {
-    color: #ffc107;
+  @media (max-width: $tablet) {
+    width: 16px;
+    height: 16px;
   }
 }

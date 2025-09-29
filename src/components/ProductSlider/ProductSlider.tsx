@@ -7,8 +7,9 @@ import "./ProductSlider.scss";
 
 /**
  * ProductSlider Component
- * Main slider component that displays products in a vertical list
- * and shows detailed information in a side panel
+ * Main slider component that displays products
+ * Desktop: Side-by-side layout with product list and details panel
+ * Mobile/Tablet: Accordion layout where details expand below selected product
  */
 const ProductSlider: React.FC = () => {
   const { products, loading, error } = useFetchProducts();
@@ -32,20 +33,27 @@ const ProductSlider: React.FC = () => {
 
   return (
     <div className="product-slider">
-      {/* Left side - Product cards list */}
       <div className="product-slider__list">
         {products.map((product, index) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            isActive={index === activeIndex}
-            onClick={() => selectProduct(index)}
-          />
+          <React.Fragment key={product.id}>
+            <ProductCard
+              product={product}
+              isActive={index === activeIndex}
+              onClick={() => selectProduct(index)}
+            />
+
+            {/* Accordion details - only visible on mobile/tablet, shown below active card */}
+            {index === activeIndex && activeProduct && (
+              <div className="product-slider__accordion-details">
+                <ProductDetails product={activeProduct} />
+              </div>
+            )}
+          </React.Fragment>
         ))}
       </div>
 
-      {/* Right side - Product details panel */}
-      <div className="product-slider__details">
+      {/* Side panel details - only visible on desktop */}
+      <div className="product-slider__side-details">
         {activeProduct && <ProductDetails product={activeProduct} />}
       </div>
     </div>

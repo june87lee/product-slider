@@ -37,7 +37,7 @@ export const useFetchProducts = (
     };
 
     fetchProducts();
-  }, []);
+  }, [toFetchURL]);
 
   return { products, loading, error };
 };

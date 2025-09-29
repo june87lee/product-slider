@@ -1,6 +1,7 @@
 import React from "react";
 import { useFetchProducts } from "../../hooks/useFetchProducts";
 // import { useSlider } from "../../hooks/useSlider";
+import "./ProductSlider.scss";
 
 /**
  * ProductSlider Component

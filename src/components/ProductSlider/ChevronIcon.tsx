@@ -30,7 +30,6 @@ const ChevronIcon: React.FC<ChevronIconProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* Circle border - fills when active */}
       <circle
         cx="12"
         cy="12"
@@ -39,8 +38,6 @@ const ChevronIcon: React.FC<ChevronIconProps> = ({
         strokeWidth="2"
         fill={isActive ? "currentColor" : "none"}
       />
-
-      {/* Chevron arrow - color inverts when active */}
       <path
         d="M9 11L12 14L15 11"
         stroke={isActive ? "white" : "currentColor"}

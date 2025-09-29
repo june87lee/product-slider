@@ -11,13 +11,186 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $primary-color;
+  background-color: $background-light;
 }
 
+// HomePage Styles
 .home-page {
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
+  flex-direction: column;
+
   align-items: center;
   justify-content: center;
+
   padding: $spacing-md;
-  background-color: $background-light;
+
+  &__container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  // Header section
+  &__header {
+    text-align: center;
+    padding: $spacing-lg 0;
+    width: 100%;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: $spacing-md;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: 1.125rem;
+    color: $secondary-color;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__details {
+    background-color: $white;
+    padding: $spacing-lg;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  &__details-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $primary-color;
+    margin-bottom: $spacing-md;
+  }
+
+  &__details-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+
+    li {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: $primary-color;
+      padding-left: $spacing-md;
+      position: relative;
+
+      &::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: $accent-color;
+        font-weight: bold;
+      }
+
+      strong {
+        color: $primary-color;
+        font-weight: 600;
+      }
+
+      code {
+        background-color: $background-light;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+        color: $accent-color;
+      }
+    }
+  }
+
+  &__slider {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media (max-width: $desktop) {
+    padding: $spacing-lg $spacing-md;
+
+    &__container {
+      gap: $spacing-lg;
+      align-items: center;
+    }
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__subtitle {
+      font-size: 1rem;
+    }
+
+    &__details {
+      padding: $spacing-md;
+      max-width: 700px;
+    }
+
+    &__details-title {
+      font-size: 1.25rem;
+    }
+
+    &__details-list li {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    padding: $spacing-md;
+
+    &__container {
+      gap: $spacing-md;
+    }
+
+    &__header {
+      padding: $spacing-md 0;
+    }
+
+    &__title {
+      font-size: 1.75rem;
+    }
+
+    &__subtitle {
+      font-size: 0.95rem;
+    }
+
+    &__details {
+      padding: $spacing-sm;
+      max-width: 100%;
+    }
+
+    &__details-title {
+      font-size: 1.125rem;
+      margin-bottom: $spacing-sm;
+    }
+
+    &__details-list {
+      gap: $spacing-sm;
+
+      li {
+        font-size: 0.85rem;
+        padding-left: $spacing-sm;
+
+        code {
+          font-size: 0.85em;
+        }
+      }
+    }
+  }
 }

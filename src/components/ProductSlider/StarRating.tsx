@@ -30,6 +30,7 @@ const StarRating: React.FC<StarRatingProps> = ({
    * Full stars get 100%, empty stars get 0%, partial stars get percentage
    * Maybe needlessly complex for a simple star rating, but works well
    * Maybe needs to be in own utils function
+   * TODO: rethink if this logic should be here or removed altogether
    */
   const getStarFillPercentage = (starIndex: number): number => {
     const starPosition = starIndex + 1;
@@ -47,7 +48,6 @@ const StarRating: React.FC<StarRatingProps> = ({
     }
   };
 
-  // Generate array of stars with their fill percentages
   const stars = Array.from({ length: maxStars }, (_, index) => {
     return getStarFillPercentage(index);
   });

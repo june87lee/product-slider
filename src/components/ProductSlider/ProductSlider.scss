@@ -59,7 +59,7 @@
   &__accordion-placeholder.is-active {
     display: block;
     opacity: 1;
-    max-height: 1000px; // large enough to allow full expansion; it's clamped by content
+    // max-height: 1000px; // large enough to allow full expansion; it's clamped by content
   }
 
   // Loading and error states
@@ -142,10 +142,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  &:focus {
-    outline: 2px solid $accent-color;
-    outline-offset: 2px;
-  }
+  // &:focus {
+  //   outline: 2px solid $accent-color;
+  //   outline-offset: 2px;
+  // }
 
   &--active {
     border-color: $accent-color;

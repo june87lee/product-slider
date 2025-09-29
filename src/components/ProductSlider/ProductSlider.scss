@@ -3,7 +3,7 @@
 
 .product-slider {
   display: flex;
-  gap: $spacing-lg;
+  // gap: $spacing-lg;
   width: 100%;
   max-width: 1200px;
   background-color: $white;
@@ -17,8 +17,7 @@
     display: flex;
     flex-direction: column;
     background-color: $background-light;
-    padding: $spacing-lg;
-    gap: $spacing-md;
+    // padding: $spacing-lg;
     overflow-y: auto;
     max-height: 700px;
   }
@@ -31,14 +30,36 @@
     display: block;
   }
 
-  // Accordion details (mobile/tablet only)
-  &__accordion-details {
+  //
+  // === FIXED: Accordion placeholder styles
+  // (match JSX: `product-slider__accordion-placeholder`)
+  //
+  &__accordion-placeholder {
+    /* Hidden by default on desktop; expanded only when active */
     display: none;
+    padding: 0; /* content itself will include padding */
+    background-color: transparent;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height $transition-normal ease,
+      opacity $transition-fast ease;
+    opacity: 0;
+    border-radius: 8px;
+  }
+
+  // content wrapper inside the placeholder (this is what your JSX renders)
+  &__accordion-content {
     padding: $spacing-lg;
     background-color: $white;
     border-radius: 8px;
-    margin-top: $spacing-sm;
     animation: slideDown $transition-normal ease-out;
+  }
+
+  // When the placeholder is active (JS toggles .is-active)
+  &__accordion-placeholder.is-active {
+    display: block;
+    opacity: 1;
+    max-height: 1000px; // large enough to allow full expansion; it's clamped by content
   }
 
   // Loading and error states
@@ -65,9 +86,12 @@
       display: none;
     }
 
-    // Show accordion details on tablet
-    &__accordion-details {
-      display: flex;
+    // Show accordion placeholder on tablet
+    // TODO: maybe needs to be removed if not used
+    &__accordion-placeholder {
+      // display: block;
+      max-height: none; /* allow natural height on small screens */
+      opacity: 1;
     }
   }
 
@@ -81,9 +105,9 @@
       gap: $spacing-sm;
     }
 
-    &__accordion-details {
+    &__accordion-placeholder {
       padding: $spacing-md;
-      margin-top: $spacing-xs;
+      // margin-top: $spacing-xs;
     }
   }
 }
@@ -105,7 +129,7 @@
   display: grid;
   grid-template-columns: 80px 1fr auto;
   align-items: center;
-  gap: $spacing-md;
+  // gap: $spacing-md;
   padding: $spacing-md;
   background-color: $white;
   border-radius: 8px;
@@ -207,10 +231,10 @@
 
   // Mobile/Tablet: vertical chevron
   @media (max-width: $desktop) {
-    transform: rotate(0deg);
+    transform: rotate(180deg);
 
     &--active {
-      transform: rotate(180deg);
+      transform: rotate(0deg);
     }
   }
 
